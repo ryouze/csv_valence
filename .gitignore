@@ -1,0 +1,8 @@
+# Directory containing compiled .o binaries
+/build
+
+# Wildcard for compiled binaries (just in case)
+*.out
+
+# Library that I didn't write
+/src/parser.hpp
