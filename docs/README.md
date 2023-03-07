@@ -170,7 +170,7 @@ Default: `output.csv`.
 
 ### 5. Specify the column that contains words.
 
-`csv_valence --column "NUMBER"`
+`./csv_valence --column "NUMBER"`
 
 Default: `1`.
 
@@ -180,7 +180,7 @@ Default: `1`.
 
 ### 6. Print verbose messages.
 
-`csv_valence -v"`
+`./csv_valence -v`
 
 ```bash
 ./csv_valence -v
