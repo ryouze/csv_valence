@@ -43,9 +43,9 @@ INFO: CSV file was processed successfully, see 'output.csv'.
 
 # Setup
 
-1. Download [csv-parser](https://github.com/AriaFallah/csv-parser) library (`parser.h`).
+### 1. Download [csv-parser](https://github.com/AriaFallah/csv-parser) library (`parser.h`).
 
-2. Rename it to `parser.hpp` and place it within `/src`.
+### 2. Rename it to `parser.hpp` and place it within `/src`.
 
 ```bash
 [~/Github/csv_valence] $ mv parser.h parser.hpp
@@ -57,14 +57,14 @@ INFO: CSV file was processed successfully, see 'output.csv'.
 
 I believe that `.h` should be reserved for C headers, and `.cpp` for C++.
 
-1. Generate Makefile.
+### 3. Generate Makefile.
 
 ```bash
 mkdir build && cd build
 cmake ..
 ```
 
-4. Compile.
+### 4. Compile.
 
 ```bash
 make
@@ -77,7 +77,7 @@ Alternatively, compile using all cores (MacOS):
 make -j `sysctl -n hw.ncpu`
 ```
 
-5. Create `words.txt`, and place a list of newline-separated words within it.
+### 5. Create `words.txt`, and place a list of newline-separated words within it.
 
 ```
 # This is a comment.
@@ -93,7 +93,7 @@ achievement
 
 Lines beginning with `#` will be ignored.
 
-6. Place your CSV file, name it `data.csv`.
+### 6. Place your CSV file, name it `data.csv`.
 
 It should look like this:
 
@@ -102,7 +102,7 @@ It should look like this:
 csv_valence      data.csv      words.txt
 ```
 
-7. Run.
+### 7. Run.
 
 ```bash
 ./csv_valence
