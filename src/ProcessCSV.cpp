@@ -164,12 +164,29 @@ class WordsHelper {
                 return false;
             }
             // convert vector into CSV string
-            for (const auto &v : vec_csv) {
-                vec_temp_t::size_type len = v.size();
-                for (vec_temp_t::size_type i = 0; i < len; ++i) {
+            vec_temp_t::size_type header_len;
+            for (std::size_t i = 0; i != vec_csv.size(); ++i) {
+                vec_temp_t v = vec_csv.at(i);  // access item by index
+                if (i == 0) {                  // get initial header's column count
+                    header_len = v.size();
+                }
+                else {  // compare initial header's column count against current column count
+                    vec_temp_t::size_type row_len = v.size();
+                    if (row_len != header_len) {
+                        std::cout << "WARNING: skipping entire row at index '"
+                                  << i
+                                  << "', because its length of '"
+                                  << row_len
+                                  << "' columns is not equal to header length of '"
+                                  << header_len
+                                  << "' columns.\n";
+                        continue;
+                    }
+                }
+                for (vec_temp_t::size_type i = 0; i < header_len; ++i) {
                     this->result += v.at(i);
                     // add comma unless last item
-                    if (i + 1 < len) {
+                    if (i + 1 < header_len) {
                         this->result += ',';
                     }
                 }
