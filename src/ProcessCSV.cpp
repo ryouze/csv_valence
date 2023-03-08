@@ -62,7 +62,7 @@ class WordsHelper {
         // append header (doing this separately to prevent bool checks for the following rows)
         for (const auto &row : parser) {
             for (const auto &column : row) {
-                if (args.verbose) {
+                if (this->args.verbose) {
                     // only used when verbose, so it's ok to use for-each loop
                     // and get iterator separately
                     auto i = &column - &row[0];  // get iterator
@@ -86,22 +86,22 @@ class WordsHelper {
             // they will be removed when found; when no words are left, break out of the loop
             vec_temp_t::iterator itr = vec_target_words.begin();
             while (itr != vec_target_words.end()) {
-                if (args.verbose) {
+                if (this->args.verbose) {
                     // this is really wordy, but ensures that the user knows what's going on
                     std::cout << "DEBUG: checking if target word '" << *itr
                               << "' is equal to the word at column no. '"
-                              << args.word_column_idx << "', which, based on the index, is equal to '"
-                              << row.at(args.word_column_idx) << "'.\n";
+                              << this->args.word_column_idx << "', which, based on the index, is equal to '"
+                              << row.at(this->args.word_column_idx) << "'.\n";
                 }
                 // if matches the word at that specific column (e.g., column 1 is "ability")
-                if (*itr == row.at(args.word_column_idx)) {
+                if (*itr == row.at(this->args.word_column_idx)) {
                     ++word_amount_found;
                     // append entire row
-                    if (args.verbose) {
+                    if (this->args.verbose) {
                         std::cout << "OK: found target word '" << *itr
                                   << "' that is equal to the word at column no. '"
-                                  << args.word_column_idx << "', which, based on the index, is equal to '"
-                                  << row.at(args.word_column_idx)
+                                  << this->args.word_column_idx << "', which, based on the index, is equal to '"
+                                  << row.at(this->args.word_column_idx)
                                   << "' ("
                                   << word_amount_found << "/" << word_amount_total
                                   << ").\n";

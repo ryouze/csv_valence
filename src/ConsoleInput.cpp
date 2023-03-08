@@ -17,7 +17,7 @@ class ArgsHelper {
     inline static const std::string empty_string = "";
 
   public:
-    ArgsHelper(int &argc, char *argv[])
+    ArgsHelper(const int &argc, char *argv[])
     /*
      * Class constructor.
      */
@@ -28,8 +28,8 @@ class ArgsHelper {
         // shrink capacity to actual size
         this->args_vec.shrink_to_fit();
         // get begin and end iterators
-        vec_begin = this->args_vec.begin();
-        vec_end = this->args_vec.end();
+        this->vec_begin = this->args_vec.begin();
+        this->vec_end = this->args_vec.end();
     }
 
     bool check_if_exists(const std::string &name) const
@@ -43,7 +43,7 @@ class ArgsHelper {
      * }
      */
     {
-        return (std::find(vec_begin, vec_end, name) != vec_end);
+        return (std::find(this->vec_begin, this->vec_end, name) != this->vec_end);
     }
 
     bool check_if_exists(const std::string &name1, const std::string &name2) const
@@ -73,7 +73,7 @@ class ArgsHelper {
      */
     {
         // get iterator to the first element is equal to name.
-        vec_opts_t::const_iterator itr = std::find(vec_begin, vec_end, name);
+        vec_opts_t::const_iterator itr = std::find(this->vec_begin, this->vec_end, name);
         // get element AFTER that iterator (+1)
         if (itr != vec_end && ++itr != vec_end) {
             return *itr;
