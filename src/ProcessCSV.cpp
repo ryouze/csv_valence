@@ -126,24 +126,18 @@ class WordsHelper {
                 }
             }
         }
-        if (word_amount_found == 0) {
-            std::cerr << "ERROR: couldn't find any matches for the words provided in '"
-                      << args.filename_words
-                      << "'.\nERROR: here is a list of words that were checked:\n";
-            for (const auto &word : vec_target_words) {
-                auto i = (&word - &vec_target_words[0]) + 1;
-                std::cout << i << ". '" << word << "'\n";
-            }
-            return false;
-        }
+        v.shrink_to_fit();
         if (word_amount_found != word_amount_total) {
             std::cerr << "INFO: couldn't find matches for the following words:\n";
             for (const auto &word : vec_target_words) {
                 auto i = (&word - &vec_target_words[0]) + 1;
                 std::cout << i << ". '" << word << "'\n";
             }
+            if (word_amount_found == 0) {
+                std::cerr << "ERROR: output CSV will not be produced, because no words were found.\n";
+                return false;
+            }
         }
-        v.shrink_to_fit();
         return true;
     }
 
