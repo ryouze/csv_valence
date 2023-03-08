@@ -39,6 +39,6 @@ for ((i=0; i<${#INPUT_CSV[@]}; ++i)); do
     if [ "$verbose" = true ]; then
         full_command+=" --verbose"
     fi
-    echo "${i}. Running command: ${full_command}"
+    echo "(${i}) run_multiple.sh: ${full_command}"
     eval "${full_command}"
 done
