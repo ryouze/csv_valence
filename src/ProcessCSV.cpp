@@ -128,15 +128,19 @@ class WordsHelper {
         }
         v.shrink_to_fit();
         if (word_amount_found != word_amount_total) {
-            std::cerr << "INFO: couldn't find matches for the following words:\n";
+            std::cout << "WARNING: couldn't find matches for the following words:\n";
             for (const auto &word : vec_target_words) {
                 auto i = (&word - &vec_target_words[0]) + 1;
                 std::cout << i << ". '" << word << "'\n";
             }
             if (word_amount_found == 0) {
-                std::cerr << "ERROR: output CSV will not be produced, because no words were found.\n";
+                std::cerr << "ERROR: output CSV will not be saved, "
+                             "because '0' words were found.\n";
                 return false;
             }
+            std::cout << "WARNING: output CSV will be saved anyway, despite the '"
+                      << (word_amount_total - word_amount_found)
+                      << "' missing words.\n";
         }
         return true;
     }

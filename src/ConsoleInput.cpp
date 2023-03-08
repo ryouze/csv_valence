@@ -191,7 +191,7 @@ bool parse_args(console_args_t &args)
         }
     }
     if (!std::filesystem::exists(args.filename_output)) {
-        std::cerr << "INFO: output CSV file doesn't exist, creating now: '"
+        std::cout << "INFO: output CSV file doesn't exist, creating now: '"
                   << args.filename_output
                   << "'.\n";
         create_file(args.filename_output);
