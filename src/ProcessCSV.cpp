@@ -61,13 +61,13 @@ class WordsHelper {
         vec_temp_t vec_temp;
         // append header (doing this separately to prevent bool checks for the following rows)
         for (const auto &row : parser) {
-            unsigned i = 0;
+            // unsigned i = 0;
             for (const auto &column : row) {
                 if (args.verbose) {
+                    auto i = &column - &row[0];  // get iterator
                     std::cout << "Header column no. " << i << " = '" << column << "'\n";
                 }
                 vec_temp.push_back(column);
-                ++i;
             }
             // break after 1 row
             break;
@@ -131,14 +131,16 @@ class WordsHelper {
                       << args.filename_words
                       << "'.\nERROR: here is a list of words that were checked:\n";
             for (const auto &word : vec_target_words) {
-                std::cout << "'" << word << "'\n";
+                auto i = (&word - &vec_target_words[0]) + 1;
+                std::cout << i << ". '" << word << "'\n";
             }
             return false;
         }
         if (word_amount_found != word_amount_total) {
             std::cerr << "INFO: couldn't find matches for the following words:\n";
             for (const auto &word : vec_target_words) {
-                std::cout << "'" << word << "'\n";
+                auto i = (&word - &vec_target_words[0]) + 1;
+                std::cout << i << ". '" << word << "'\n";
             }
         }
         v.shrink_to_fit();
