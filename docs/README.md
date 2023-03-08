@@ -43,7 +43,7 @@ INFO: CSV file was processed successfully, see 'output.csv'.
 
 # Setup
 
-### 1. Download [csv-parser](https://github.com/AriaFallah/csv-parser) library (`parser.h`).
+### 1. Download the [csv-parser](https://github.com/AriaFallah/csv-parser) library (`parser.h`).
 
 ### 2. Rename it to `parser.hpp` and place it within `/src`.
 
