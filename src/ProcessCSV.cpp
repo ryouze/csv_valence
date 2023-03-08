@@ -61,9 +61,10 @@ class WordsHelper {
         vec_temp_t vec_temp;
         // append header (doing this separately to prevent bool checks for the following rows)
         for (const auto &row : parser) {
-            // unsigned i = 0;
             for (const auto &column : row) {
                 if (args.verbose) {
+                    // only used when verbose, so it's ok to use for-each loop
+                    // and get iterator separately
                     auto i = &column - &row[0];  // get iterator
                     std::cout << "Header column no. " << i << " = '" << column << "'\n";
                 }
@@ -129,9 +130,8 @@ class WordsHelper {
         v.shrink_to_fit();
         if (word_amount_found != word_amount_total) {
             std::cout << "WARNING: couldn't find matches for the following words:\n";
-            for (const auto &word : vec_target_words) {
-                auto i = (&word - &vec_target_words[0]) + 1;
-                std::cout << i << ". '" << word << "'\n";
+            for (std::size_t i = 0; i != vec_target_words.size(); ++i) {
+                std::cout << (i + 1) << ". '" << vec_target_words.at(i) << "'\n";
             }
             if (word_amount_found == 0) {
                 std::cerr << "ERROR: output CSV will not be saved, "
