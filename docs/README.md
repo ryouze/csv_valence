@@ -115,6 +115,20 @@ If it couldn't find the words, you should specify the right column.
 ```
 
 
+### 8. Helper.
+
+I have included a simple helper script `run_multiple.sh` that can pipe a list of files into the program.
+
+As a result, you can process multiple files sequentially.
+
+The order of file-pairs in each array must be the same, i.e., `INPUT[0] + OUTPUT[0], INPUT[1] + OUTPUT[1], INPUT[2] + OUTPUT[2]`.
+
+```bash
+chmod +x run_multiple.sh
+./run_multiple.sh
+```
+
+
 ---
 
 
