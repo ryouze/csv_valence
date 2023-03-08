@@ -5,6 +5,22 @@
 #include <vector>
 
 namespace DiskManager {
+void create_empty_file(const std::string &filename)
+{
+    /*
+     * Create empty file.
+     *
+     * NOTE: it will overwrite if already exists, make sure to check for that beforehand.
+     */
+    std::ofstream file_str(filename);
+    if (!file_str) {
+        std::cerr << "FATAL ERROR: could not open ofstream for '" << filename
+                  << "' when creating empty file, "
+                     "possibly due to missing permissions to the filesystem.\n";
+        exit(EXIT_FAILURE);
+    }
+    file_str << '\n';
+}
 
 bool load_words_from_disk(const ConsoleInput::console_args_t &args, std::vector<std::string> &vec)
 /*
@@ -14,9 +30,10 @@ bool load_words_from_disk(const ConsoleInput::console_args_t &args, std::vector<
     std::string line;
     std::ifstream file_str(args.filename_words);  // filehandle is closed automatically
     if (!file_str) {
-        std::cerr << "ERROR: could not open ifstream for '" << args.filename_words
-                  << "', possibly due to missing permissions to the filesystem.\n";
-        return false;
+        std::cerr << "FATAL ERROR: could not open ifstream for '" << args.filename_words
+                  << "' when loading words from disk, "
+                     "possibly due to missing permissions to the filesystem.\n";
+        exit(EXIT_FAILURE);
     }
     // while exists, append to string with newline
     while (std::getline(file_str, line)) {
@@ -57,8 +74,10 @@ bool save_csv_to_disk(const ConsoleInput::console_args_t &args, const std::strin
     }
     std::ofstream file_str(args.filename_output);
     if (!file_str) {
-        std::cerr << "ERROR: could not open ofstream for '" << args.filename_output << "'.\n";
-        return false;
+        std::cerr << "FATAL ERROR: could not open ofstream for '" << args.filename_output
+                  << "' when saving CSV to disk, "
+                     "possibly due to missing permissions to the filesystem.\n";
+        exit(EXIT_FAILURE);
     }
     file_str << s;
     return true;

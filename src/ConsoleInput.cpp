@@ -1,4 +1,5 @@
 #include "ConsoleInput.hpp"
+#include "DiskManager.hpp"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -83,17 +84,6 @@ class ArgsHelper {
     }
 };
 
-void create_file(const std::string &filename)
-{
-    /*
-     * Create empty file.
-     *
-     * NOTE: it will overwrite if already exists, make sure to check for that beforehand.
-     */
-    std::ofstream f(filename);
-    f << '\n';
-}
-
 bool string_to_int(const std::string &s, int &i)
 {
     /*
@@ -163,9 +153,9 @@ bool parse_args(console_args_t &args)
     }
     // file doesn't exist
     if (!std::filesystem::exists(args.filename_words)) {
-        std::cerr << "ERROR: words file doesn't exist: '" << args.filename_words
+        std::cerr << "FATAL ERROR: words file doesn't exist: '" << args.filename_words
                   << "'.\n";
-        return false;
+        exit(EXIT_FAILURE);
     }
     // --- data.csv ---
     // check for "--csv", but use "data.csv" as fallback
@@ -177,9 +167,9 @@ bool parse_args(console_args_t &args)
         }
     }
     if (!std::filesystem::exists(args.filename_csv)) {
-        std::cerr << "ERROR: CSV file doesn't exist: '" << args.filename_csv
+        std::cerr << "FATAL ERROR: CSV file doesn't exist: '" << args.filename_csv
                   << "'.\n";
-        return false;
+        exit(EXIT_FAILURE);
     }
     // --- output.csv ---
     // check for "--output", but use "output.csv" as fallback
@@ -194,7 +184,7 @@ bool parse_args(console_args_t &args)
         std::cout << "INFO: output CSV file doesn't exist, creating now: '"
                   << args.filename_output
                   << "'.\n";
-        create_file(args.filename_output);
+        DiskManager::create_empty_file(args.filename_output);
     }
     if (args_helper.check_if_exists("--column")) {
         std::string temp = args_helper.get_keyword_pair("--column");
