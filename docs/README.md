@@ -10,11 +10,11 @@ Something like this:
 | achievement |   3644    | 4.25743325884858 |
 |  accurate   |   2904    | 4.15888186292094 |
 
-This program can accomplish that without freezing constantly.
+This program can accomplish that without freezing constantly (unlike LibreOffice or Apple Numbers).
 
 It checks if the word within the first column (can be customized) matches any of the words in `words.txt`, and if so, it grabs the entire line and saves it to `output.csv`.
 
-The end result is a `.csv` file with only the words I need, instead of 2 billion words.
+The end result is a `.csv` file with only the words I need, instead of 2 million words.
 
 
 ---
