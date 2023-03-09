@@ -1,7 +1,7 @@
 # csv_valence
 Extract words from big CSV files.
 
-I have to find word frequencies and valence values from CSV files that are ~200MB for my MA essay.
+I have to extract word frequencies and valence values from CSV files that are ~200MB for my MA essay.
 
 Something like this:
 
@@ -157,6 +157,8 @@ options:
 
 ### 2. Specify input target words file.
 
+Target list of newline-separated target words.
+
 `./csv_valence --words "FILEPATH.TXT"`
 
 Default: `words.txt`.
@@ -166,6 +168,8 @@ Default: `words.txt`.
 ```
 
 ### 3. Specify input CSV file.
+
+Big input CSV with all words.
 
 `./csv_valence --csv "FILEPATH.CSV"`
 
@@ -177,6 +181,8 @@ Default: `data.csv`.
 
 ### 4. Specify output CSV file.
 
+Small output CSV with target words only.
+
 `./csv_valence --output "FILEPATH.CSV"`
 
 Default: `output.csv`.
@@ -186,6 +192,8 @@ Default: `output.csv`.
 ```
 
 ### 5. Specify the column that contains words.
+
+Column in big input CSV that contains target words.
 
 `./csv_valence --column "NUMBER"`
 
