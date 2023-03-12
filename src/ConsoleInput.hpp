@@ -13,7 +13,7 @@ struct console_args_t {
     std::string filename_words;
     std::string filename_csv;
     std::string filename_output;
-    int word_column_idx;
+    std::size_t word_column_idx;
     bool verbose;
 };
 

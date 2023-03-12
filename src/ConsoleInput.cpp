@@ -84,26 +84,26 @@ class ArgsHelper {
     }
 };
 
-bool string_to_int(const std::string &s, int &i)
+bool string_to_long_long(const std::string &s, long long &i)
 {
     /*
-     * Convert string "s" to int "i".
+     * Convert string "s" to long long "i".
      *
      * Return True if succeeded, False if failed.
      */
     bool success = false;
     // convert to int
     try {
-        i = std::stoi(s);
+        i = std::stol(s);
         success = true;
     }
     catch (std::invalid_argument const &e) {
-        std::cerr << "ERROR: invalid argument (tried to convert '"
-                  << s << "' to integer).\n";
+        std::cerr << "ERROR: invalid number (tried to convert '"
+                  << s << "' to long long).\n";
     }
     catch (std::out_of_range const &e) {
         std::cerr << "ERROR: out of integer range (tried to convert '"
-                  << s << "' to integer).\n";
+                  << s << "' to long long).\n";
     }
     return success;
 }
@@ -193,15 +193,18 @@ bool parse_args(console_args_t &args)
                       << args.word_column_idx << "\").\n";
             return false;
         }
-        // convert string to int
-        if (!string_to_int(temp, args.word_column_idx)) {
+        // convert string to long long
+        long long temp_num;
+        if (!string_to_long_long(temp, temp_num)) {
             std::cerr << "ERROR: please provide a valid integer to a column (e.g., \"1\").\n";
             return false;
         }
-        if (args.word_column_idx < 0) {
+        if (temp_num < 0) {
             std::cerr << "ERROR: please provide column integers equal to 0 or above (e.g., \"1\").\n";
             return false;
         }
+        // cast long long to unsigned long
+        args.word_column_idx = static_cast<std::size_t>(temp_num);
     }
     if (args_helper.check_if_exists("-v", "--verbose")) {
         args.verbose = true;

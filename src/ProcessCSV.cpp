@@ -42,7 +42,7 @@ class WordsHelper {
         return true;
     }
 
-    bool process_csv(vec_csv_t &v) const
+    bool process_csv(vec_csv_t &v, std::size_t &header_len) const
     {
         /*
          * Find a list of target words inside CSV and return them as a vector of vectors.
@@ -69,9 +69,21 @@ class WordsHelper {
                     std::cout << "Header column no. " << i << " = '" << column << "'\n";
                 }
                 vec_temp.push_back(column);
+                ++header_len;
             }
             // break after 1 row
             break;
+        }
+        // check if requrested column index is out CSV's of bounds
+        if (this->args.word_column_idx > header_len) {
+            std::cerr << "ERROR: the target column index '"
+                      << this->args.word_column_idx
+                      << "' is larger than the total amount of columns '"
+                      << header_len
+                      << "'. Please enter a number using '--column' that "
+                         "is smaller than '"
+                      << header_len << "'.\n";
+            return false;
         }
         v.push_back(vec_temp);
         // search for rows
@@ -159,29 +171,25 @@ class WordsHelper {
         // if not already processed, extract csv and turn into string
         if (this->result.empty()) {
             vec_csv_t vec_csv;
-            if (!this->process_csv(vec_csv)) {
+            std::size_t header_len = 0;
+            if (!this->process_csv(vec_csv, header_len)) {
                 std::cerr << "ERROR: failed to turn a vector into a comma-separated string.\n";
                 return false;
             }
             // convert vector into CSV string
-            vec_temp_t::size_type header_len;
+
             for (std::size_t i = 0; i != vec_csv.size(); ++i) {
                 vec_temp_t v = vec_csv.at(i);  // access item by index
-                if (i == 0) {                  // get initial header's column count
-                    header_len = v.size();
-                }
-                else {  // compare initial header's column count against current column count
-                    vec_temp_t::size_type row_len = v.size();
-                    if (row_len != header_len) {
-                        std::cout << "WARNING: skipping entire row at index '"
-                                  << i
-                                  << "', because its length of '"
-                                  << row_len
-                                  << "' columns is not equal to header length of '"
-                                  << header_len
-                                  << "' columns.\n";
-                        continue;
-                    }
+                vec_temp_t::size_type row_len = v.size();
+                if (row_len != header_len) {
+                    std::cout << "WARNING: skipping entire row at index '"
+                              << i
+                              << "', because its length of '"
+                              << row_len
+                              << "' columns is not equal to header length of '"
+                              << header_len
+                              << "' columns.\n";
+                    continue;
                 }
                 for (vec_temp_t::size_type i = 0; i < header_len; ++i) {
                     this->result += v.at(i);
