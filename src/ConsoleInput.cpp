@@ -79,7 +79,8 @@ class ArgsHelper {
         if (itr != vec_end && ++itr != vec_end) {
             return *itr;
         }
-        std::cerr << "ERROR: argument '" << name << "' doesn't have a value.\n";
+        std::cerr << "ERROR: argument '" << name << "' doesn't have a value.\n"
+                  << "Please enter '" << name << " \"VALUE\"'.\n";
         return this->empty_string;
     }
 };
@@ -147,14 +148,16 @@ bool parse_args(console_args_t &args)
     if (args_helper.check_if_exists("--words")) {
         args.filename_words = args_helper.get_keyword_pair("--words");
         if (args.filename_words.empty()) {
-            std::cerr << "ERROR: please provide a non-empty words filename.\n";
+            std::cerr << "ERROR: please provide path to the words file "
+                         "(i.e., a file containing individual words, with each "
+                         "of them placed on a newline).\n";
             return false;
         }
     }
     // file doesn't exist
     if (!std::filesystem::exists(args.filename_words)) {
         std::cerr << "FATAL ERROR: words file doesn't exist: '" << args.filename_words
-                  << "'.\n";
+                  << "'. Please create a list of newline-separated words.\n";
         exit(EXIT_FAILURE);
     }
     // --- data.csv ---
@@ -162,13 +165,15 @@ bool parse_args(console_args_t &args)
     if (args_helper.check_if_exists("--csv")) {
         args.filename_csv = args_helper.get_keyword_pair("--csv");
         if (args.filename_csv.empty()) {
-            std::cerr << "ERROR: please provide a non-empty input CSV filename.\n";
+            std::cerr << "ERROR: please provide a path to the input CSV file "
+                         "(e.g., 'data.csv').\n";
             return false;
         }
     }
     if (!std::filesystem::exists(args.filename_csv)) {
-        std::cerr << "FATAL ERROR: CSV file doesn't exist: '" << args.filename_csv
-                  << "'.\n";
+        std::cerr << "FATAL ERROR: big CSV file doesn't exist: '" << args.filename_csv
+                  << "'. Please provide a path to the input CSV file that contains "
+                     "words and their data\n ";
         exit(EXIT_FAILURE);
     }
     // --- output.csv ---
@@ -176,7 +181,8 @@ bool parse_args(console_args_t &args)
     if (args_helper.check_if_exists("--output")) {
         args.filename_output = args_helper.get_keyword_pair("--output");
         if (args.filename_output.empty()) {
-            std::cerr << "ERROR: please provide a non-empty output CSV filename.\n";
+            std::cerr << "ERROR: please provide a path to the output CSV file "
+                         "(e.g., 'output.csv').\n";
             return false;
         }
     }
@@ -190,17 +196,20 @@ bool parse_args(console_args_t &args)
         std::string temp = args_helper.get_keyword_pair("--column");
         if (temp.empty()) {
             std::cerr << "ERROR: no integer was provided to a column (default: \""
-                      << args.word_column_idx << "\").\n";
+                      << args.word_column_idx
+                      << "\"). Please provide a number.\n";
             return false;
         }
         // convert string to long long
         long long temp_num;
         if (!string_to_long_long(temp, temp_num)) {
-            std::cerr << "ERROR: please provide a valid integer to a column (e.g., \"1\").\n";
+            std::cerr << "ERROR: please provide a valid integer to a column "
+                         "(e.g., \"1\").\n";
             return false;
         }
         if (temp_num < 0) {
-            std::cerr << "ERROR: please provide column integers equal to 0 or above (e.g., \"1\").\n";
+            std::cerr << "ERROR: please provide column integers equal to 0 or above "
+                         "(e.g., \"1\").\n";
             return false;
         }
         // cast long long to unsigned long

@@ -194,7 +194,7 @@ class WordsHelper {
                 for (vec_temp_t::size_type i = 0; i < header_len; ++i) {
                     this->result += v.at(i);
                     // add comma unless last item
-                    if (i + 1 < header_len) {
+                    if ((i + 1) < header_len) {
                         this->result += ',';
                     }
                 }
