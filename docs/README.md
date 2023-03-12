@@ -45,7 +45,7 @@ INFO: CSV file was processed successfully, see 'output.csv'.
 
 * Fully customizable, with a helper `run_multiple.sh` that can process multiple files sequentially.
 * Checks for non-existent, empty or invalid files, with helpful error messages.
-* Processes files row-by-row and stops after all the words were found.
+* Processes files row-by-row and stops once all the words are found.
 * Lists words that were not found, with an optional `--verbose` flag that prints all row-by-row comparisons.
 * Detects invalid rows (column amount does not match the column amount in the header, e.g., header: `12`, row: `10`).
 
