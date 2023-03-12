@@ -53,6 +53,7 @@ INFO: CSV file was processed successfully, see 'output.csv'.
 [~/Github/csv_valence] $ cd src && ls
 ...  ProcessCSV.cpp   ProcessCSV.hpp   main.cpp         parser.hpp
 [~/Github/csv_valence/src] $ cd ..
+[~/Github/csv_valence] $
 ```
 
 I believe that `.h` should be reserved for C headers, and `.cpp` for C++.
@@ -164,7 +165,10 @@ Target list of newline-separated target words.
 Default: `words.txt`.
 
 ```bash
-./csv_valence --words "list.txt"
+# path: current, relative or absolute
+./csv_valence --words "english.txt"
+./csv_valence --words "data/english.txt"
+./csv_valence --words "/Users/hikari/data/english.txt"
 ```
 
 ### 3. Specify input CSV file.
@@ -176,7 +180,10 @@ Big input CSV with all words.
 Default: `data.csv`.
 
 ```bash
+# path: current, relative or absolute
 ./csv_valence --csv "vocab_EN_cleaned.csv"
+./csv_valence --csv "data/vocab_EN_cleaned.csv"
+./csv_valence --csv "/Users/hikari/data/vocab_EN_cleaned.csv"
 ```
 
 ### 4. Specify output CSV file.
@@ -188,7 +195,10 @@ Small output CSV with target words only.
 Default: `output.csv`.
 
 ```bash
+# path: current, relative or absolute
 ./csv_valence --output "final.csv"
+./csv_valence --output "result/final.csv"
+./csv_valence --output "/Users/hikari/result/final.csv"
 ```
 
 ### 5. Specify the column that contains words.
@@ -201,6 +211,8 @@ Default: `1`.
 
 ```bash
 ./csv_valence --column 0
+./csv_valence --column 5
+./csv_valence --column 22
 ```
 
 ### 6. Print verbose messages.
