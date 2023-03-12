@@ -173,7 +173,7 @@ bool parse_args(console_args_t &args)
     if (!std::filesystem::exists(args.filename_csv)) {
         std::cerr << "FATAL ERROR: big CSV file doesn't exist: '" << args.filename_csv
                   << "'. Please provide a path to the input CSV file that contains "
-                     "words and their data\n ";
+                     "words and their data.\n";
         exit(EXIT_FAILURE);
     }
     // --- output.csv ---
